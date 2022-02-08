@@ -29,7 +29,7 @@ class Owner(commands.Cog, name="owner-slash"):
 
     @commands.slash_command(
         name="shutdown",
-        description="Make the bot shutdown.",
+        description="Выключить бота",
     )
     @checks.is_owner()
     async def shutdown(self, interaction: ApplicationCommandInteraction) -> None:
@@ -38,7 +38,7 @@ class Owner(commands.Cog, name="owner-slash"):
         :param interaction: The application command interaction.
         """
         embed = disnake.Embed(
-            description="Shutting down. Bye! :wave:",
+            description="Выключаюсь. Пока! :wave:",
             color=0x9C84EF
         )
         await interaction.send(embed=embed)

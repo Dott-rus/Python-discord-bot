@@ -29,17 +29,17 @@ class Moderation(commands.Cog, name="moderation-slash"):
 
     @commands.slash_command(
         name="kick",
-        description="Kick a user out of the server.",
+        description="Выкинуть пользователя из сервера",
         options=[
             Option(
                 name="user",
-                description="The user you want to kick.",
+                description="Выберите пользователя которого хотите кикнуть.",
                 type=OptionType.user,
                 required=True
             ),
             Option(
                 name="reason",
-                description="The reason you kicked the user.",
+                description="Причина по которой вы хотеите кикнуть пользователя.",
                 type=OptionType.string,
                 required=False
             )
@@ -85,25 +85,25 @@ class Moderation(commands.Cog, name="moderation-slash"):
                 await member.kick(reason=reason)
             except:
                 embed = disnake.Embed(
-                    title="Error!",
-                    description="An error occurred while trying to kick the user. Make sure my role is above the role of the user you want to kick.",
+                    title="Ошибка!",
+                    description="Произошла ошибка при попытке исключить пользователя. Убедитесь, что моя роль выше роли пользователя, которого вы хотите исключить.",
                     color=0xE02B2B
                 )
                 await interaction.send(embed=embed)
 
     @commands.slash_command(
         name="nick",
-        description="Change the nickname of a user on a server.",
+        description="Сменить никнейм пользователя на сервере.",
         options=[
             Option(
                 name="user",
-                description="The user you want to change the nickname.",
+                description="Пользователь, которому вы хотите изменить псевдоним.",
                 type=OptionType.user,
                 required=True
             ),
             Option(
                 name="nickname",
-                description="The new nickname of the user.",
+                description="Новый никнейм пользователя.",
                 type=OptionType.string,
                 required=False
             )
@@ -122,32 +122,32 @@ class Moderation(commands.Cog, name="moderation-slash"):
         try:
             await member.edit(nick=nickname)
             embed = disnake.Embed(
-                title="Changed Nickname!",
-                description=f"**{member}'s** new nickname is **{nickname}**!",
+                title="Никнейм изменен!",
+                description=f"**{member}** новый никнейм **{nickname}**!",
                 color=0x9C84EF
             )
             await interaction.send(embed=embed)
         except:
             embed = disnake.Embed(
-                title="Error!",
-                description="An error occurred while trying to change the nickname of the user. Make sure my role is above the role of the user you want to change the nickname.",
+                title="Ошибка!",
+                description="Произошла ошибка при попытке изменить псевдоним пользователя. Убедитесь, что моя роль выше роли пользователя, которому вы хотите изменить никнейм.",
                 color=0xE02B2B
             )
             await interaction.send(embed=embed)
 
     @commands.slash_command(
         name="ban",
-        description="Bans a user from the server.",
+        description="Банит пользователя на сервере.",
         options=[
             Option(
                 name="user",
-                description="The user you want to ban.",
+                description="Пользователь, которого вы хотите забанить.",
                 type=OptionType.user,
                 required=True
             ),
             Option(
                 name="reason",
-                description="The reason you banned the user.",
+                description="Причина, по которой вы хотите забанить пользователя.",
                 type=OptionType.string,
                 required=False
             )
@@ -167,49 +167,49 @@ class Moderation(commands.Cog, name="moderation-slash"):
         try:
             if member.guild_permissions.administrator:
                 embed = disnake.Embed(
-                    title="Error!",
-                    description="User has Admin permissions.",
+                    title="Ошибка",
+                    description="Пользователь имеет права администратора.",
                     color=0xE02B2B
                 )
                 await interaction.send(embed=embed)
             else:
                 embed = disnake.Embed(
                     title="User Banned!",
-                    description=f"**{member}** was banned by **{interaction.author}**!",
+                    description=f"**{member}** был забанен **{interaction.author}**!",
                     color=0x9C84EF
                 )
                 embed.add_field(
-                    name="Reason:",
+                    name="Причина:",
                     value=reason
                 )
                 await interaction.send(embed=embed)
                 try:
-                    await member.send(f"You were banned by **{interaction.author}**!\nReason: {reason}")
+                    await member.send(f"Ты был забанен **{interaction.author}**!\nПричина: {reason}")
                 except disnake.Forbidden:
                     # Couldn't send a message in the private messages of the user
                     pass
                 await member.ban(reason=reason)
         except:
             embed = disnake.Embed(
-                title="Error!",
-                description="An error occurred while trying to ban the user. Make sure my role is above the role of the user you want to ban.",
+                title="Ошибка!",
+                description="Произошла ошибка при попытке заблокировать пользователя. Убедитесь, что моя роль выше роли пользователя, которого вы хотите забанить.",
                 color=0xE02B2B
             )
             await interaction.send(embed=embed)
 
     @commands.slash_command(
         name="warn",
-        description="Warns a user in the server.",
+        description="Предупреждает пользователя на сервере.",
         options=[
             Option(
                 name="user",
-                description="The user you want to warn.",
+                description="Пользователь, которого вы хотите предупредить.",
                 type=OptionType.user,
                 required=True
             ),
             Option(
                 name="reason",
-                description="The reason you warned the user.",
+                description="Причина, по которой вы предупредили пользователя.",
                 type=OptionType.string,
                 required=False
             )
@@ -227,28 +227,28 @@ class Moderation(commands.Cog, name="moderation-slash"):
         """
         member = await interaction.guild.get_or_fetch_member(user.id)
         embed = disnake.Embed(
-            title="User Warned!",
-            description=f"**{member}** was warned by **{interaction.author}**!",
+            title="Пользователь предупрежден!",
+            description=f"**{member}** был придупреждён **{interaction.author}**!",
             color=0x9C84EF
         )
         embed.add_field(
-            name="Reason:",
+            name="Причина:",
             value=reason
         )
         await interaction.send(embed=embed)
         try:
-            await member.send(f"You were warned by **{interaction.author}**!\nReason: {reason}")
+            await member.send(f"Ты был предупреждён**{interaction.author}**!\nПричина: {reason}")
         except disnake.Forbidden:
             # Couldn't send a message in the private messages of the user
-            await interaction.send(f"{member.mention}, you were warned by **{interaction.author}**!\nReason: {reason}")
+            await interaction.send(f"{member.mention}, ты был предупреждён **{interaction.author}**!\nПричина: {reason}")
 
     @commands.slash_command(
-        name="purge",
-        description="Delete a number of messages.",
+        name="clear",
+        description="Удалить некое количество сообщений",
         options=[
             Option(
-                name="amount",
-                description="The amount of messages you want to delete. (Must be between 1 and 100.)",
+                name="количество",
+                description="Количество сообщений, которые вы хотите удалить. (Должно быть между 1 и 100.)",
                 type=OptionType.integer,
                 required=True,
                 min_value=1,
@@ -267,7 +267,7 @@ class Moderation(commands.Cog, name="moderation-slash"):
         """
         purged_messages = await interaction.channel.purge(limit=amount)
         embed = disnake.Embed(
-            title="Chat Cleared!",
+            title="Чат очищен!",
             description=f"**{interaction.author}** cleared **{len(purged_messages)}** messages!",
             color=0x9C84EF
         )
